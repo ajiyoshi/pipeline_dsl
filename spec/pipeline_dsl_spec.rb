@@ -83,4 +83,14 @@ describe PipelineDsl do
         @out2.string.chomp.should eq("hell hello\nhello world")
     end
 
+    it 'should パイプを3段渡せる' do
+        input = StringIO.new("1234\n123\n13\n14")
+
+        cat(input) {
+            grep(/3/) | grep(/1/) | grep(/4/) | @out1
+        }
+
+        @out1.string.chomp.should eq("1234")
+    end
+
 end

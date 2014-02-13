@@ -74,7 +74,6 @@ module PipelineDsl
                 @output | dest
             elsif @output.nil?
                 PipelineDsl::connect!(self, dest)
-                @output = dest
             end
             self
         end
