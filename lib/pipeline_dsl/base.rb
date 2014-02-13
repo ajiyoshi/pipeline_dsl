@@ -33,17 +33,6 @@ module PipelineDsl
         end
     end
 
-    def build(dest)
-        if dest.is_a?(BasePipe)
-            dest
-        elsif dest.is_a?(Command)
-            pipe(dest)
-        else
-            ConcretePipe::IO.new(dest)
-        end
-    end
-    module_function :build
-
     def connect!(from, dest)
         to = build(dest)
         to.parent!(from)
@@ -98,5 +87,22 @@ module PipelineDsl
             self | open(path, "a") 
         end
     end
+
+    def pipe(task)
+        ConcretePipe::Simple.new(task)
+    end
+    module_function :pipe
+
+    def build(dest)
+        if dest.is_a?(BasePipe)
+            dest
+        elsif dest.is_a?(Command)
+            pipe(dest)
+        else
+            ConcretePipe::IO.new(dest)
+        end
+    end
+    module_function :build
+
 end
 

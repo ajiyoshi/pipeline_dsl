@@ -6,10 +6,6 @@ require "pipeline_dsl/buildin"
 
 module PipelineDsl
 
-    def pipe(task)
-        ConcretePipe::Simple.new(task)
-    end
-
     def cat(input, &block)
         dest = block[]
         if dest
@@ -26,8 +22,8 @@ module PipelineDsl
         Grep.new(re)
     end
 
-    module_function :pipe
     module_function :cat
     module_function :multi
     module_function :grep
+
 end
