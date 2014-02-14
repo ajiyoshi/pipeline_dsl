@@ -53,7 +53,27 @@ module PipelineDsl
 
         def out
             if @output.nil?
+                _out_recursive([self])
+            else
+                @output
+            end
+        end
+
+        def out_old
+            if @output.nil?
                 parent.nil? ? nil : parent.out
+            else
+                @output
+            end
+        end
+
+        def _out_recursive(excepts)
+            if @output.nil? || excepts.any?{|e| e.equal?(@output) }
+                if parent.nil?
+                    nil
+                else
+                    parent._out_recursive(excepts.push(self))
+                end
             else
                 @output
             end

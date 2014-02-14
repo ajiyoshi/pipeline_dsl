@@ -93,4 +93,20 @@ describe PipelineDsl do
         @out1.string.chomp.should eq("1234")
     end
 
+    it 'should 出力先省略時にoutがちゃんと取れること' do
+        cmd = @wc
+        p1 = grep(/1/) | cmd
+        p2 = grep(/2/) | p1
+        p3 = grep(/3/) | p2
+        pipe = multi(p3)
+
+        p1.out.should_not be(nil)
+        p1.out.out.should be(nil)
+        p2.out.should be(p1)
+        p3.out.should be(p2)
+        pipe.out.should be(nil)
+
+        p1.out_old.out_old.should be(p1.out_old.out_old)
+        p1.out_old.out_old.should be(p1.out_old.out_old.out_old)
+    end
 end

@@ -26,7 +26,7 @@ module PipelineDsl
         end
 
         def mapper(line)
-            @re.match(line) ?  [ line ] : []
+            @re.match(line) ? [ line ] : []
         end
     end
 end

@@ -74,6 +74,12 @@ module  PipelineDsl
                 }
             end
 
+            def each(&block)
+                @dests.each {|x|
+                    block[x]
+                }
+            end
+
             def write(acc)
                 acc.each {|dest, rec|
                     dest.write(rec)
@@ -85,7 +91,7 @@ module  PipelineDsl
             end
 
             def to_s
-                "{ multi (\n%s\n) }" % [ @dests.map {|d| d.to_s}.join("\n") ]
+                "{ multi (\n%s\n) -> %s }" % [ @dests.map {|d| d.to_s}.join("\n"), out.class ]
             end
 
         end
