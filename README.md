@@ -48,9 +48,9 @@ cat(STDIN) {
 ```
 
 You can connect command streams with '|' like unix shell.
-(PipelineDsl::wc is a built in command)
 
 ```ruby
+wc = WordCount.new
 cat(STDIN) {
     grep(/android/) | wc 
 }
