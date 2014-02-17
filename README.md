@@ -110,6 +110,20 @@ cat(STDIN) {
     
 ```
 
+A command will be executed like below.
+
+```ruby
+
+cmd = YourCommand.new
+
+result = theInput.flat_map { |rec|
+    cmd.mapper(rec)
+}.reduce( cmd.unit ) {|acc, rec|
+    cmd.reducer(acc, rec)
+}
+
+theOutput.puts( cmd.writer(result) )
+```
 
 ## Contributing
 
