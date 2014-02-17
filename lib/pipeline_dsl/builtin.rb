@@ -1,15 +1,20 @@
 module PipelineDsl
 
-    class WordCount < PipelineDsl::Command
-        def mapper line
-            line.chomp.split(/\s/).to_a
-        end
+    module CountReducer
         def unit
             Hash.new(0)
         end
-        def reducer(acc, word)
-            acc[word] = acc[word] + 1
+        def reducer(acc, rec)
+            acc[rec] += 1
             acc
+        end
+    end
+
+    class WordCount < PipelineDsl::Command
+        include CountReducer
+
+        def mapper line
+            line.chomp.split(/\s/).to_a
         end
         def writer(enum)
             enum.map {|word, val|
