@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = PipelineDsl::VERSION
   spec.authors       = ["ajiyoshi-vg"]
   spec.email         = ["Yoichi_Sudo@voyagegroup.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.summary       = %q{TODO: UNIX pipe like DSL for test streaming filter.}
+  spec.description   = %q{TODO: UNIX pipe like DSL for test streaming filter.}
   spec.homepage      = ""
   spec.license       = "MIT"
 
