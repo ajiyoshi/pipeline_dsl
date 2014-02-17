@@ -125,6 +125,28 @@ result = theInput.flat_map { |rec|
 theOutput.puts( cmd.writer(result) )
 ```
 
+If you don't need reduce, then include PipelineDsl::SimpleMapper.
+
+```ruby
+class Grep < PipelineDsl::Command
+    include PipelineDsl::SimpleMapper
+
+    def initialize(re)
+        @re = re
+    end
+
+    def mapper(line)
+        @re.match(line) ? [ line ] : []
+    end
+end
+
+cat(STDIN) {
+    Grep.new(/hoge/)
+}
+```
+
+
+
 ## Contributing
 
 1. Fork it ( http://github.com/ajiyoshi/pipeline_dsl/fork )
