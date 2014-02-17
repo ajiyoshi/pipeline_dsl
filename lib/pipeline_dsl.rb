@@ -2,7 +2,7 @@ require "pipeline_dsl/version"
 require "pipeline_dsl/base"
 require "pipeline_dsl/concrete_pipe"
 require "pipeline_dsl/buffer_strategy"
-require "pipeline_dsl/buildin"
+require "pipeline_dsl/builtin"
 
 module PipelineDsl
 
