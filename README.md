@@ -88,7 +88,7 @@ You can write your custom command. mapper(), unit(), reducer() and write() are r
 ```ruby
     class WordCount < PipelineDsl::Command
         def mapper line
-            line.chomp.split(/\s/).to_a
+            line.chomp.split(/\s/)
         end 
         def unit
             Hash.new(0)
