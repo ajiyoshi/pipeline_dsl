@@ -1,6 +1,6 @@
 # PipelineDsl
 
-DSL like UNIX shell pipeline.
+A DSL like the UNIX shell pipeline.
 
 ## Installation
 
