@@ -109,4 +109,32 @@ describe PipelineDsl do
         p1.out_old.out_old.should be(p1.out_old.out_old)
         p1.out_old.out_old.should be(p1.out_old.out_old.out_old)
     end
+
+    it 'should パーティション' do
+        input = StringIO.new("1234\n123\n13\n14")
+
+        cat(input) {
+            partition(
+                @out1,
+                @out2
+            ) {|line| /4/.match(line) }
+        }
+
+        @out1.string.chomp.should eq("1234\n14")
+        @out2.string.chomp.should eq("123\n13")
+    end
+
+    it 'should 複合パーティション' do
+        input = StringIO.new("1234\n123\n13\n14")
+
+        cat(input) {
+            partition(
+                grep(/3/) | @out1,
+                @out2
+            ) {|line| /4/.match(line) }
+        }
+
+        @out1.string.chomp.should eq("1234")
+        @out2.string.chomp.should eq("123\n13")
+    end
 end

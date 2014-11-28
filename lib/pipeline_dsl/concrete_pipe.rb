@@ -95,6 +95,42 @@ module  PipelineDsl
             end
 
         end
+
+        class Partition < BasePipe
+            def initialize(ok_case, ng_case, &pred)
+                @ok_case = PipelineDsl::build(ok_case).parent!(self)
+                @ng_case = PipelineDsl::build(ng_case).parent!(self)
+                @pred = pred
+            end
+
+            def unit
+                [@ok_case.unit, @ng_case.unit]
+            end
+
+            def accumulate(accs, rec)
+                ok, ng = accs
+                if @pred[rec]
+                    [ @ok_case.accumulate(ok, rec), ng ]
+                else
+                    [ ok, @ng_case.accumulate(ng, rec) ]
+                end
+            end
+
+            def write(accs)
+                ok, ng = accs
+                @ok_case.write(ok)
+                @ng_case.write(ng)
+            end
+
+            def puts(enum)
+                strategy.proc(enum, self)
+            end
+
+            def to_s
+                "{ partition (\n%s, %s\n) -> %s }" % [ @ok_case.to_s, @ng_case.to_s, out.class ]
+            end
+
+        end
     end
 end
 

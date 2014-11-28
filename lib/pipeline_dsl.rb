@@ -22,6 +22,10 @@ module PipelineDsl
         Grep.new(re)
     end
 
+    def partition(ok_case, ng_case, &pred)
+        ConcretePipe::Partition.new(ok_case, ng_case, &pred)
+    end
+
     module_function :cat
     module_function :multi
     module_function :grep
