@@ -6,7 +6,7 @@ A DSL like the UNIX shell pipeline.
 
 Add this line to your application's Gemfile:
 
-    gem 'pipeline_dsl'
+     gem 'pipeline_dsl', :git => 'https://github.com/ajiyoshi/pipeline_dsl.git'
 
 And then execute:
 
